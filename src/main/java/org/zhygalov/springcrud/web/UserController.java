@@ -31,8 +31,18 @@ public class UserController {
 		return printUsers(model);
 	}
 	@PostMapping("/delete")
-	public String deleteUser(User user, ModelMap model) {
+	public String deleteUser(User user) {
 		userService.delete(user);
-		return printUsers(model);
+		return "redirect:/users";
+	}
+	@PostMapping("/update")
+	public String updateUser(User user, ModelMap model) {
+		model.addAttribute("user", user);
+		return "updateUser";
+	}
+	@PostMapping("/update/process")
+	public String processUpdate(User user) {
+		userService.update(user);
+		return "redirect:/users";
 	}
 }
