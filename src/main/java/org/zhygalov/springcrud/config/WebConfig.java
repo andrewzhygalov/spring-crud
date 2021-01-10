@@ -12,7 +12,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"org.zhygalov.springcrud.service", "org.zhygalov.springcrud.web", "org.zhygalov.springcrud.config"})
+@ComponentScan({"org.zhygalov.springcrud.service", "org.zhygalov.springcrud.web", "org.zhygalov.springcrud.config", "org.zhygalov.springcrud.security"})
 public class WebConfig implements WebMvcConfigurer {
 	 private final ApplicationContext applicationContext;
 

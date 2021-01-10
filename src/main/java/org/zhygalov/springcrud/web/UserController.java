@@ -14,35 +14,46 @@ import java.util.List;
 import org.zhygalov.springcrud.service.UserService;
 import org.zhygalov.springcrud.model.User;
 @Controller
-@RequestMapping("/users")
+@RequestMapping
 public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping
-	public String printUsers(ModelMap model) {
+	
+	@GetMapping("/")
+	public String titlePage() {
+		return "index";
+	}
+	
+	@GetMapping("/user")
+	public String userPage(ModelMap model) {
+		return "user";
+	}
+	
+	@GetMapping("/admin")
+	public String adminPage(ModelMap model) {
 		model.addAttribute("users", userService.findAll());
 		model.addAttribute("emptyUser", new User());
-		return "users";
+		return "admin";
 	}
-	@PostMapping
+	@PostMapping("/admin")
 	public String addUser(User user, ModelMap model) {
 		userService.create(user);
-		return printUsers(model);
+		return adminPage(model);
 	}
-	@PostMapping("/delete")
+	@PostMapping("/admin/delete")
 	public String deleteUser(User user) {
 		userService.delete(user);
-		return "redirect:/users";
+		return "redirect:/admin";
 	}
-	@PostMapping("/update")
+	@PostMapping("/admin/update")
 	public String updateUser(User user, ModelMap model) {
 		model.addAttribute("user", user);
 		return "updateUser";
 	}
-	@PostMapping("/update/process")
+	@PostMapping("/admin/update/process")
 	public String processUpdate(User user) {
 		userService.update(user);
-		return "redirect:/users";
+		return "redirect:/admin";
 	}
 }
