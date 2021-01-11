@@ -17,6 +17,8 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         String base = "/spring-crud";
+		String name = UserDetails.class.cast(authentication.getPrincipal()).getUsername();
+		httpServletRequest.getSession().setAttribute("userName", name);
 		if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect(base + "/admin");
         } else {
